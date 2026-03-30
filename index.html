@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Application Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">JT</div>
+          <div>
+            <p class="eyebrow">Lovable-style MVP</p>
+            <h1>Job Tracker</h1>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <p class="eyebrow">Career Pipeline</p>
+          <h2>Keep every opportunity visible</h2>
+          <p>
+            Track applications, interviews, offers, and follow-ups in a single
+            responsive workspace.
+          </p>
+        </div>
+
+        <div class="sidebar-card">
+          <p class="eyebrow">Included in the MVP</p>
+          <ul class="sidebar-list">
+            <li>Application dashboard</li>
+            <li>Kanban stage management</li>
+            <li>Recruiter and salary tracking</li>
+            <li>Interview notes</li>
+            <li>Local storage persistence</li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="hero">
+          <div>
+            <p class="eyebrow">Personal recruiting CRM</p>
+            <h2>Manage your applications like a modern sales pipeline</h2>
+            <p class="hero-copy">
+              Add opportunities, update interview stages, and prioritize
+              follow-ups with a clean interface inspired by modern AI app
+              builders.
+            </p>
+          </div>
+          <div class="hero-actions">
+            <button class="button button-secondary" id="resetDataButton">
+              Reset demo data
+            </button>
+            <button class="button button-primary" id="newApplicationButton">
+              New application
+            </button>
+          </div>
+        </header>
+
+        <section class="stats-grid" id="statsGrid"></section>
+
+        <section class="panel controls-panel">
+          <div class="controls-header">
+            <div>
+              <p class="eyebrow">Filter and focus</p>
+              <h3>Application controls</h3>
+            </div>
+          </div>
+
+          <div class="controls-grid">
+            <label class="field">
+              <span>Search company or role</span>
+              <input
+                type="search"
+                id="searchInput"
+                placeholder="Search applications"
+              />
+            </label>
+
+            <label class="field">
+              <span>Stage</span>
+              <select id="stageFilter"></select>
+            </label>
+
+            <label class="field">
+              <span>Priority</span>
+              <select id="priorityFilter"></select>
+            </label>
+
+            <label class="field">
+              <span>Mode</span>
+              <select id="viewMode">
+                <option value="kanban">Kanban board</option>
+                <option value="table">Detailed table</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <div class="panel board-panel" id="kanbanSection">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Visual pipeline</p>
+                <h3>Kanban by application stage</h3>
+              </div>
+            </div>
+            <div class="kanban-board" id="kanbanBoard"></div>
+          </div>
+
+          <div class="panel table-panel hidden" id="tableSection">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Structured registry</p>
+                <h3>Application table</h3>
+              </div>
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Stage</th>
+                    <th>Priority</th>
+                    <th>Salary</th>
+                    <th>Follow-up</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="applicationTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel insight-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Execution hints</p>
+                <h3>What needs attention now</h3>
+              </div>
+            </div>
+            <div id="insightsList" class="insights-list"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="applicationDialog" class="dialog">
+      <form method="dialog" id="applicationForm" class="dialog-card">
+        <div class="dialog-header">
+          <div>
+            <p class="eyebrow">Application record</p>
+            <h3 id="dialogTitle">New application</h3>
+          </div>
+          <button class="icon-button" type="button" id="closeDialogButton">
+            ✕
+          </button>
+        </div>
+
+        <div class="dialog-grid">
+          <label class="field">
+            <span>Company</span>
+            <input id="companyInput" name="company" required />
+          </label>
+
+          <label class="field">
+            <span>Role title</span>
+            <input id="roleInput" name="role" required />
+          </label>
+
+          <label class="field">
+            <span>Job link</span>
+            <input id="linkInput" name="link" type="url" required />
+          </label>
+
+          <label class="field">
+            <span>Salary range</span>
+            <input id="salaryInput" name="salary" placeholder="R$ 12k - 15k" />
+          </label>
+
+          <label class="field">
+            <span>Application date</span>
+            <input id="dateInput" name="appliedDate" type="date" required />
+          </label>
+
+          <label class="field">
+            <span>Current stage</span>
+            <select id="stageInput" name="stage" required></select>
+          </label>
+
+          <label class="field">
+            <span>Priority</span>
+            <select id="priorityInput" name="priority" required></select>
+          </label>
+
+          <label class="field">
+            <span>Recruiter</span>
+            <input id="recruiterInput" name="recruiter" />
+          </label>
+
+          <label class="field">
+            <span>Next follow-up date</span>
+            <input id="followUpInput" name="followUp" type="date" required />
+          </label>
+
+          <label class="field field-full">
+            <span>Notes</span>
+            <textarea id="notesInput" name="notes" rows="4"></textarea>
+          </label>
+        </div>
+
+        <div class="dialog-actions">
+          <button class="button button-secondary" type="button" id="cancelButton">
+            Cancel
+          </button>
+          <button class="button button-primary" type="submit">
+            Save application
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
