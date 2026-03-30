@@ -9,6 +9,10 @@ O app funciona como um mini CRM pessoal para candidatura a vagas. Ele organiza o
 - `Kanban` para gestão visual do pipeline;
 - `tabela estruturada` para revisão mais operacional e analítica.
 
+## Interface
+
+![Interface do tracker](assets/lovable1.jpg)
+
 ## Funcionalidades
 
 - cadastro, edição e exclusão de candidaturas;
@@ -135,6 +139,10 @@ Depois abra:
 - supports filtering by search term, stage, and priority;
 - provides a detailed table view for operational review;
 - saves data locally through `localStorage`.
+
+## Interface
+
+![Tracker interface](assets/lovable1.jpg)
 
 ## Technical Design
 
