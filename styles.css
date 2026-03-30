@@ -215,6 +215,12 @@ body {
   margin-bottom: 18px;
 }
 
+.panel-helper {
+  margin: 8px 0 0;
+  max-width: 680px;
+  color: var(--muted);
+}
+
 .content-grid {
   display: grid;
   grid-template-columns: 1.8fr 1fr;
@@ -236,24 +242,70 @@ body {
   grid-row: 1 / span 2;
 }
 
+.kanban-board-wrap {
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
 .kanban-board {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(5, minmax(260px, 1fr));
+  gap: 16px;
+  min-width: 1360px;
 }
 
 .kanban-column {
-  min-height: 360px;
-  padding: 14px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(255, 255, 255, 0.03);
+  min-height: 420px;
+  padding: 16px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025)),
+    rgba(255, 255, 255, 0.03);
 }
 
 .kanban-column h4 {
-  margin: 0 0 12px;
+  margin: 0;
   font-family: "Space Grotesk", sans-serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
+}
+
+.kanban-column-header {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.kanban-column-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.kanban-column-copy p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.kanban-column-track {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.kanban-column-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #82ffd4, #2eb7ff);
+}
+
+.kanban-column-body {
+  display: grid;
+  gap: 12px;
 }
 
 .count-badge,
@@ -278,16 +330,17 @@ body {
   border-radius: 18px;
   background: rgba(2, 13, 20, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  margin-bottom: 12px;
+  display: grid;
+  gap: 12px;
 }
 
 .application-card h5 {
-  margin: 0 0 4px;
+  margin: 0;
   font-size: 1rem;
 }
 
 .application-card p {
-  margin: 0 0 10px;
+  margin: 0;
   color: var(--muted);
 }
 
@@ -296,7 +349,48 @@ body {
   justify-content: space-between;
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+}
+
+.card-role {
+  color: var(--muted);
+}
+
+.card-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.card-detail {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.92rem;
+}
+
+.card-detail-label {
+  color: var(--muted);
+}
+
+.card-notes {
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  line-height: 1.4;
+}
+
+.follow-up-overdue {
+  color: #ffb5b5;
+  font-weight: 700;
+}
+
+.empty-column {
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.45;
 }
 
 .priority-alta {

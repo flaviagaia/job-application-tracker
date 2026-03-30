@@ -9,6 +9,13 @@ const stages = [
 ];
 
 const priorities = ["Alta", "Média", "Baixa"];
+const stageDetails = {
+  Salva: "Oportunidades mapeadas, ainda aguardando candidatura.",
+  Aplicada: "Vagas já enviadas e monitoradas para retorno inicial.",
+  Entrevistas: "Processos em andamento com conversas e etapas técnicas.",
+  Oferta: "Propostas recebidas ou em fase final de negociação.",
+  Encerrada: "Processos finalizados, pausados ou descartados.",
+};
 
 const seedApplications = [
   {
@@ -219,30 +226,54 @@ function renderStats() {
 
 function renderKanban() {
   const items = getFilteredApplications();
+  const maxItems = Math.max(...stages.map((stage) => items.filter((item) => item.stage === stage).length), 1);
   elements.kanbanBoard.innerHTML = stages
     .map((stage) => {
       const stageItems = items.filter((item) => item.stage === stage);
+      const progressWidth = Math.max((stageItems.length / maxItems) * 100, stageItems.length ? 18 : 0);
       return `
         <section class="kanban-column">
-          <div class="panel-heading">
-            <h4>${stage}</h4>
-            <span class="count-badge">${stageItems.length}</span>
+          <div class="kanban-column-header">
+            <div class="kanban-column-top">
+              <h4>${stage}</h4>
+              <span class="count-badge">${stageItems.length}</span>
+            </div>
+            <div class="kanban-column-copy">
+              <p>${stageDetails[stage]}</p>
+            </div>
+            <div class="kanban-column-track">
+              <div class="kanban-column-fill" style="width: ${progressWidth}%"></div>
+            </div>
           </div>
-          ${stageItems
+          <div class="kanban-column-body">
+          ${stageItems.length
+            ? stageItems
             .map(
               (application) => `
                 <article class="application-card">
                   <div class="card-meta">
-                    <span class="stage-pill">${application.stage}</span>
                     <span class="priority-pill priority-${toPriorityClass(application.priority)}">${application.priority}</span>
+                    <span class="${application.followUp < getToday() ? "follow-up-overdue" : ""}">
+                      ${application.followUp < getToday() ? "Atrasado" : "Em dia"}
+                    </span>
                   </div>
                   <h5>${application.company}</h5>
-                  <p>${application.role}</p>
-                  <div class="card-meta">
-                    <span>${application.salary || "Salário pendente"}</span>
-                    <span>Follow-up ${formatDate(application.followUp)}</span>
+                  <p class="card-role">${application.role}</p>
+                  <div class="card-detail-grid">
+                    <div class="card-detail">
+                      <span class="card-detail-label">Salário</span>
+                      <span>${application.salary || "Pendente"}</span>
+                    </div>
+                    <div class="card-detail">
+                      <span class="card-detail-label">Recrutador</span>
+                      <span>${application.recruiter || "Não informado"}</span>
+                    </div>
+                    <div class="card-detail">
+                      <span class="card-detail-label">Follow-up</span>
+                      <span class="${application.followUp < getToday() ? "follow-up-overdue" : ""}">${formatDate(application.followUp)}</span>
+                    </div>
                   </div>
-                  <p>${application.notes}</p>
+                  <p class="card-notes">${application.notes}</p>
                   <div class="card-actions">
                     <button class="button button-secondary" data-action="edit" data-id="${application.id}">Editar</button>
                     <button class="button button-secondary" data-action="delete" data-id="${application.id}">Excluir</button>
@@ -250,7 +281,9 @@ function renderKanban() {
                 </article>
               `
             )
-            .join("")}
+            .join("")
+            : `<div class="empty-column">Nenhuma candidatura nesta etapa no filtro atual.</div>`}
+          </div>
         </section>
       `;
     })
