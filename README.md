@@ -6,8 +6,8 @@ Um MVP de product interface inspirado em apps criados com Lovable para acompanha
 
 O app funciona como um mini CRM pessoal para candidatura a vagas. Ele organiza o pipeline em estágios, permite registrar recrutadores, faixa salarial, notas de entrevista e próxima ação, e oferece duas leituras complementares:
 
-- `Kanban board` para gestão visual do pipeline;
-- `Structured table` para revisão mais operacional e analítica.
+- `Kanban` para gestão visual do pipeline;
+- `tabela estruturada` para revisão mais operacional e analítica.
 
 ## Funcionalidades
 
@@ -49,11 +49,11 @@ Cada candidatura contém os seguintes atributos:
   "link": "https://openai.com/careers",
   "salary": "$160k - $190k",
   "appliedDate": "2026-03-18",
-  "stage": "Interviewing",
-  "priority": "High",
+  "stage": "Entrevistas",
+  "priority": "Alta",
   "recruiter": "Mia Johnson",
   "followUp": "2026-04-02",
-  "notes": "Technical screen completed."
+  "notes": "Triagem técnica concluída."
 }
 ```
 
