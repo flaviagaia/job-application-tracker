@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Application Tracker</title>
+    <title>Tracker de Candidaturas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,28 +18,28 @@
         <div class="brand">
           <div class="brand-mark">JT</div>
           <div>
-            <p class="eyebrow">Lovable-style MVP</p>
-            <h1>Job Tracker</h1>
+            <p class="eyebrow">MVP no estilo Lovable</p>
+            <h1>Tracker de Vagas</h1>
           </div>
         </div>
 
         <div class="sidebar-card">
-          <p class="eyebrow">Career Pipeline</p>
-          <h2>Keep every opportunity visible</h2>
+          <p class="eyebrow">Pipeline de carreira</p>
+          <h2>Deixe cada oportunidade visível</h2>
           <p>
-            Track applications, interviews, offers, and follow-ups in a single
-            responsive workspace.
+            Acompanhe candidaturas, entrevistas, ofertas e follow-ups em um
+            único ambiente responsivo.
           </p>
         </div>
 
         <div class="sidebar-card">
-          <p class="eyebrow">Included in the MVP</p>
+          <p class="eyebrow">Incluído no MVP</p>
           <ul class="sidebar-list">
-            <li>Application dashboard</li>
-            <li>Kanban stage management</li>
-            <li>Recruiter and salary tracking</li>
-            <li>Interview notes</li>
-            <li>Local storage persistence</li>
+            <li>Dashboard de candidaturas</li>
+            <li>Gestão por etapas em Kanban</li>
+            <li>Acompanhamento de recrutador e salário</li>
+            <li>Anotações de entrevista</li>
+            <li>Persistência em armazenamento local</li>
           </ul>
         </div>
       </aside>
@@ -47,20 +47,20 @@
       <main class="main-content">
         <header class="hero">
           <div>
-            <p class="eyebrow">Personal recruiting CRM</p>
-            <h2>Manage your applications like a modern sales pipeline</h2>
+            <p class="eyebrow">CRM pessoal de recrutamento</p>
+            <h2>Gerencie suas candidaturas como um pipeline moderno de vendas</h2>
             <p class="hero-copy">
-              Add opportunities, update interview stages, and prioritize
-              follow-ups with a clean interface inspired by modern AI app
-              builders.
+              Adicione oportunidades, atualize etapas de entrevista e priorize
+              follow-ups em uma interface limpa inspirada em construtores
+              modernos de apps com IA.
             </p>
           </div>
           <div class="hero-actions">
             <button class="button button-secondary" id="resetDataButton">
-              Reset demo data
+              Restaurar dados demo
             </button>
             <button class="button button-primary" id="newApplicationButton">
-              New application
+              Nova candidatura
             </button>
           </div>
         </header>
@@ -70,36 +70,36 @@
         <section class="panel controls-panel">
           <div class="controls-header">
             <div>
-              <p class="eyebrow">Filter and focus</p>
-              <h3>Application controls</h3>
+              <p class="eyebrow">Filtre e foque</p>
+              <h3>Controles da aplicação</h3>
             </div>
           </div>
 
           <div class="controls-grid">
             <label class="field">
-              <span>Search company or role</span>
+              <span>Buscar empresa ou cargo</span>
               <input
                 type="search"
                 id="searchInput"
-                placeholder="Search applications"
+                placeholder="Buscar candidaturas"
               />
             </label>
 
             <label class="field">
-              <span>Stage</span>
+              <span>Etapa</span>
               <select id="stageFilter"></select>
             </label>
 
             <label class="field">
-              <span>Priority</span>
+              <span>Prioridade</span>
               <select id="priorityFilter"></select>
             </label>
 
             <label class="field">
-              <span>Mode</span>
+              <span>Modo</span>
               <select id="viewMode">
-                <option value="kanban">Kanban board</option>
-                <option value="table">Detailed table</option>
+                <option value="kanban">Quadro Kanban</option>
+                <option value="table">Tabela detalhada</option>
               </select>
             </label>
           </div>
@@ -109,8 +109,8 @@
           <div class="panel board-panel" id="kanbanSection">
             <div class="panel-heading">
               <div>
-                <p class="eyebrow">Visual pipeline</p>
-                <h3>Kanban by application stage</h3>
+                <p class="eyebrow">Pipeline visual</p>
+                <h3>Kanban por etapa da candidatura</h3>
               </div>
             </div>
             <div class="kanban-board" id="kanbanBoard"></div>
@@ -119,21 +119,21 @@
           <div class="panel table-panel hidden" id="tableSection">
             <div class="panel-heading">
               <div>
-                <p class="eyebrow">Structured registry</p>
-                <h3>Application table</h3>
+                <p class="eyebrow">Registro estruturado</p>
+                <h3>Tabela de candidaturas</h3>
               </div>
             </div>
             <div class="table-wrapper">
               <table>
                 <thead>
                   <tr>
-                    <th>Company</th>
-                    <th>Role</th>
-                    <th>Stage</th>
-                    <th>Priority</th>
-                    <th>Salary</th>
+                    <th>Empresa</th>
+                    <th>Cargo</th>
+                    <th>Etapa</th>
+                    <th>Prioridade</th>
+                    <th>Salário</th>
                     <th>Follow-up</th>
-                    <th>Actions</th>
+                    <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody id="applicationTableBody"></tbody>
@@ -144,8 +144,8 @@
           <div class="panel insight-panel">
             <div class="panel-heading">
               <div>
-                <p class="eyebrow">Execution hints</p>
-                <h3>What needs attention now</h3>
+                <p class="eyebrow">Sinais de execução</p>
+                <h3>O que precisa de atenção agora</h3>
               </div>
             </div>
             <div id="insightsList" class="insights-list"></div>
@@ -158,8 +158,8 @@
       <form method="dialog" id="applicationForm" class="dialog-card">
         <div class="dialog-header">
           <div>
-            <p class="eyebrow">Application record</p>
-            <h3 id="dialogTitle">New application</h3>
+            <p class="eyebrow">Registro da candidatura</p>
+            <h3 id="dialogTitle">Nova candidatura</h3>
           </div>
           <button class="icon-button" type="button" id="closeDialogButton">
             ✕
@@ -168,62 +168,62 @@
 
         <div class="dialog-grid">
           <label class="field">
-            <span>Company</span>
+            <span>Empresa</span>
             <input id="companyInput" name="company" required />
           </label>
 
           <label class="field">
-            <span>Role title</span>
+            <span>Cargo</span>
             <input id="roleInput" name="role" required />
           </label>
 
           <label class="field">
-            <span>Job link</span>
+            <span>Link da vaga</span>
             <input id="linkInput" name="link" type="url" required />
           </label>
 
           <label class="field">
-            <span>Salary range</span>
-            <input id="salaryInput" name="salary" placeholder="R$ 12k - 15k" />
+            <span>Faixa salarial</span>
+            <input id="salaryInput" name="salary" placeholder="R$ 12 mil - 15 mil" />
           </label>
 
           <label class="field">
-            <span>Application date</span>
+            <span>Data da candidatura</span>
             <input id="dateInput" name="appliedDate" type="date" required />
           </label>
 
           <label class="field">
-            <span>Current stage</span>
+            <span>Etapa atual</span>
             <select id="stageInput" name="stage" required></select>
           </label>
 
           <label class="field">
-            <span>Priority</span>
+            <span>Prioridade</span>
             <select id="priorityInput" name="priority" required></select>
           </label>
 
           <label class="field">
-            <span>Recruiter</span>
+            <span>Recrutador</span>
             <input id="recruiterInput" name="recruiter" />
           </label>
 
           <label class="field">
-            <span>Next follow-up date</span>
+            <span>Próxima data de follow-up</span>
             <input id="followUpInput" name="followUp" type="date" required />
           </label>
 
           <label class="field field-full">
-            <span>Notes</span>
+            <span>Observações</span>
             <textarea id="notesInput" name="notes" rows="4"></textarea>
           </label>
         </div>
 
         <div class="dialog-actions">
           <button class="button button-secondary" type="button" id="cancelButton">
-            Cancel
+            Cancelar
           </button>
           <button class="button button-primary" type="submit">
-            Save application
+            Salvar candidatura
           </button>
         </div>
       </form>

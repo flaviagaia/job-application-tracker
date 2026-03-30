@@ -299,17 +299,17 @@ body {
   margin-bottom: 12px;
 }
 
-.priority-high {
+.priority-alta {
   background: rgba(255, 123, 123, 0.16);
   color: #ffb5b5;
 }
 
-.priority-medium {
+.priority-media {
   background: rgba(255, 209, 102, 0.16);
   color: #ffe3a0;
 }
 
-.priority-low {
+.priority-baixa {
   background: rgba(91, 241, 176, 0.16);
   color: #a5ffd7;
 }

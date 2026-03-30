@@ -1,14 +1,14 @@
 const STORAGE_KEY = "job-application-tracker-data-v1";
 
 const stages = [
-  "Saved",
-  "Applied",
-  "Interviewing",
-  "Offer",
-  "Closed",
+  "Salva",
+  "Aplicada",
+  "Entrevistas",
+  "Oferta",
+  "Encerrada",
 ];
 
-const priorities = ["High", "Medium", "Low"];
+const priorities = ["Alta", "Média", "Baixa"];
 
 const seedApplications = [
   {
@@ -18,11 +18,11 @@ const seedApplications = [
     link: "https://openai.com/careers",
     salary: "$160k - $190k",
     appliedDate: "2026-03-18",
-    stage: "Interviewing",
-    priority: "High",
+    stage: "Entrevistas",
+    priority: "Alta",
     recruiter: "Mia Johnson",
     followUp: "2026-04-02",
-    notes: "Technical screen completed. Prepare architecture examples.",
+    notes: "Triagem técnica concluída. Preparar exemplos de arquitetura.",
   },
   {
     id: crypto.randomUUID(),
@@ -31,11 +31,11 @@ const seedApplications = [
     link: "https://cloudflare.com/careers",
     salary: "$120k - $145k",
     appliedDate: "2026-03-21",
-    stage: "Applied",
-    priority: "Medium",
+    stage: "Aplicada",
+    priority: "Média",
     recruiter: "Liam Torres",
     followUp: "2026-04-04",
-    notes: "Need a concise follow-up if no response by Friday.",
+    notes: "Enviar follow-up curto se não houver resposta até sexta.",
   },
   {
     id: crypto.randomUUID(),
@@ -44,11 +44,11 @@ const seedApplications = [
     link: "https://stripe.com/jobs",
     salary: "$150k - $175k",
     appliedDate: "2026-03-10",
-    stage: "Offer",
-    priority: "High",
+    stage: "Oferta",
+    priority: "Alta",
     recruiter: "Sophia Kim",
     followUp: "2026-04-01",
-    notes: "Evaluate compensation package and remote policy.",
+    notes: "Avaliar pacote de remuneração e política remota.",
   },
   {
     id: crypto.randomUUID(),
@@ -57,11 +57,11 @@ const seedApplications = [
     link: "https://www.datadoghq.com/careers",
     salary: "$135k - $155k",
     appliedDate: "2026-03-05",
-    stage: "Closed",
-    priority: "Low",
+    stage: "Encerrada",
+    priority: "Baixa",
     recruiter: "Daniel Ross",
     followUp: "2026-03-28",
-    notes: "Role paused. Keep relationship warm for future openings.",
+    notes: "Vaga pausada. Manter relacionamento para futuras oportunidades.",
   },
   {
     id: crypto.randomUUID(),
@@ -70,11 +70,11 @@ const seedApplications = [
     link: "https://www.anthropic.com/careers",
     salary: "$145k - $170k",
     appliedDate: "2026-03-24",
-    stage: "Saved",
-    priority: "Medium",
+    stage: "Salva",
+    priority: "Média",
     recruiter: "Nina Patel",
     followUp: "2026-04-06",
-    notes: "Customize resume before submitting.",
+    notes: "Customizar currículo antes de enviar.",
   },
 ];
 
@@ -82,8 +82,8 @@ const state = {
   applications: loadApplications(),
   filters: {
     search: "",
-    stage: "All stages",
-    priority: "All priorities",
+    stage: "Todas as etapas",
+    priority: "Todas as prioridades",
     mode: "kanban",
   },
   editingId: null,
@@ -119,13 +119,20 @@ const elements = {
   notesInput: document.getElementById("notesInput"),
 };
 
+function toPriorityClass(priority) {
+  return priority
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
 function loadApplications() {
   const persisted = window.localStorage.getItem(STORAGE_KEY);
   if (!persisted) return seedApplications;
   try {
     return JSON.parse(persisted);
   } catch (error) {
-    console.warn("Unable to parse stored applications", error);
+    console.warn("Não foi possível ler as candidaturas salvas", error);
     return seedApplications;
   }
 }
@@ -156,10 +163,10 @@ function getFilteredApplications() {
       application.company.toLowerCase().includes(state.filters.search) ||
       application.role.toLowerCase().includes(state.filters.search);
     const matchesStage =
-      state.filters.stage === "All stages" ||
+      state.filters.stage === "Todas as etapas" ||
       application.stage === state.filters.stage;
     const matchesPriority =
-      state.filters.priority === "All priorities" ||
+      state.filters.priority === "Todas as prioridades" ||
       application.priority === state.filters.priority;
     return matchesSearch && matchesStage && matchesPriority;
   });
@@ -169,31 +176,31 @@ function renderStats() {
   const items = getFilteredApplications();
   const stats = [
     {
-      label: "Tracked applications",
+      label: "Candidaturas monitoradas",
       value: items.length,
-      detail: "Visible under the current filter scope",
+      detail: "Visíveis no escopo atual de filtros",
     },
     {
-      label: "Interviews or offers",
+      label: "Entrevistas ou ofertas",
       value: items.filter((item) =>
-        ["Interviewing", "Offer"].includes(item.stage)
+        ["Entrevistas", "Oferta"].includes(item.stage)
       ).length,
-      detail: "Pipeline momentum at the most critical stages",
+      detail: "Momento do pipeline nas etapas mais críticas",
     },
     {
-      label: "High-priority follow-ups",
-      value: items.filter((item) => item.priority === "High").length,
-      detail: "Applications that deserve immediate attention",
+      label: "Follow-ups de alta prioridade",
+      value: items.filter((item) => item.priority === "Alta").length,
+      detail: "Candidaturas que merecem atenção imediata",
     },
     {
-      label: "Next follow-up",
+      label: "Próximo follow-up",
       value:
         items
           .map((item) => item.followUp)
           .sort()[0]
           ?.slice(5)
           .replace("-", "/") || "--/--",
-      detail: "Closest follow-up date in the filtered list",
+      detail: "Data mais próxima de follow-up na lista filtrada",
     },
   ];
 
@@ -227,18 +234,18 @@ function renderKanban() {
                 <article class="application-card">
                   <div class="card-meta">
                     <span class="stage-pill">${application.stage}</span>
-                    <span class="priority-pill priority-${application.priority.toLowerCase()}">${application.priority}</span>
+                    <span class="priority-pill priority-${toPriorityClass(application.priority)}">${application.priority}</span>
                   </div>
                   <h5>${application.company}</h5>
                   <p>${application.role}</p>
                   <div class="card-meta">
-                    <span>${application.salary || "Salary pending"}</span>
+                    <span>${application.salary || "Salário pendente"}</span>
                     <span>Follow-up ${formatDate(application.followUp)}</span>
                   </div>
                   <p>${application.notes}</p>
                   <div class="card-actions">
-                    <button class="button button-secondary" data-action="edit" data-id="${application.id}">Edit</button>
-                    <button class="button button-secondary" data-action="delete" data-id="${application.id}">Delete</button>
+                    <button class="button button-secondary" data-action="edit" data-id="${application.id}">Editar</button>
+                    <button class="button button-secondary" data-action="delete" data-id="${application.id}">Excluir</button>
                   </div>
                 </article>
               `
@@ -259,13 +266,13 @@ function renderTable() {
           <td>${application.company}</td>
           <td>${application.role}</td>
           <td><span class="stage-pill">${application.stage}</span></td>
-          <td><span class="priority-pill priority-${application.priority.toLowerCase()}">${application.priority}</span></td>
-          <td>${application.salary || "Pending"}</td>
+          <td><span class="priority-pill priority-${toPriorityClass(application.priority)}">${application.priority}</span></td>
+          <td>${application.salary || "Pendente"}</td>
           <td>${formatDate(application.followUp)}</td>
           <td>
             <div class="table-actions">
-              <button class="button button-secondary" data-action="edit" data-id="${application.id}">Edit</button>
-              <button class="button button-secondary" data-action="delete" data-id="${application.id}">Delete</button>
+              <button class="button button-secondary" data-action="edit" data-id="${application.id}">Editar</button>
+              <button class="button button-secondary" data-action="delete" data-id="${application.id}">Excluir</button>
             </div>
           </td>
         </tr>
@@ -277,26 +284,26 @@ function renderTable() {
 function renderInsights() {
   const items = getFilteredApplications();
   const overdue = items.filter((item) => item.followUp < getToday()).length;
-  const interviewing = items.filter((item) => item.stage === "Interviewing");
-  const offers = items.filter((item) => item.stage === "Offer");
-  const saved = items.filter((item) => item.stage === "Saved");
+  const interviewing = items.filter((item) => item.stage === "Entrevistas");
+  const offers = items.filter((item) => item.stage === "Oferta");
+  const saved = items.filter((item) => item.stage === "Salva");
 
   const insights = [
     {
-      title: `${overdue} overdue follow-ups`,
-      text: "Use this queue to keep conversations warm and reduce silent drop-offs.",
+      title: `${overdue} follow-ups atrasados`,
+      text: "Use essa fila para manter as conversas aquecidas e reduzir sumiços silenciosos.",
     },
     {
-      title: `${interviewing.length} active interview loops`,
-      text: "Good moment to prepare stories, architecture examples, and compensation expectations.",
+      title: `${interviewing.length} processos ativos de entrevista`,
+      text: "Bom momento para preparar histórias, exemplos de arquitetura e expectativas de remuneração.",
     },
     {
-      title: `${offers.length} offers in review`,
-      text: "Compare compensation, remote policy, growth path, and equity before deciding.",
+      title: `${offers.length} ofertas em análise`,
+      text: "Compare remuneração, política remota, trilha de crescimento e equity antes de decidir.",
     },
     {
-      title: `${saved.length} opportunities not submitted yet`,
-      text: "These roles may need resume tailoring and company-specific research before applying.",
+      title: `${saved.length} oportunidades ainda não enviadas`,
+      text: "Essas vagas podem precisar de currículo customizado e pesquisa específica da empresa antes da candidatura.",
     },
   ];
 
@@ -332,24 +339,24 @@ function getToday() {
 
 function formatDate(dateString) {
   if (!dateString) return "--";
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat("pt-BR", {
+    day: "2-digit",
     month: "short",
-    day: "numeric",
   }).format(new Date(`${dateString}T00:00:00`));
 }
 
 function openDialog(application) {
   state.editingId = application?.id || null;
   elements.dialogTitle.textContent = application
-    ? "Edit application"
-    : "New application";
+    ? "Editar candidatura"
+    : "Nova candidatura";
   elements.companyInput.value = application?.company || "";
   elements.roleInput.value = application?.role || "";
   elements.linkInput.value = application?.link || "";
   elements.salaryInput.value = application?.salary || "";
   elements.dateInput.value = application?.appliedDate || getToday();
-  elements.stageInput.value = application?.stage || "Saved";
-  elements.priorityInput.value = application?.priority || "Medium";
+  elements.stageInput.value = application?.stage || "Salva";
+  elements.priorityInput.value = application?.priority || "Média";
   elements.recruiterInput.value = application?.recruiter || "";
   elements.followUpInput.value = application?.followUp || getToday();
   elements.notesInput.value = application?.notes || "";
@@ -448,8 +455,8 @@ function bindEvents() {
 }
 
 function initialize() {
-  populateSelect(elements.stageFilter, stages, "All stages");
-  populateSelect(elements.priorityFilter, priorities, "All priorities");
+  populateSelect(elements.stageFilter, stages, "Todas as etapas");
+  populateSelect(elements.priorityFilter, priorities, "Todas as prioridades");
   populateSelect(elements.stageInput, stages);
   populateSelect(elements.priorityInput, priorities);
   elements.viewMode.value = state.filters.mode;
