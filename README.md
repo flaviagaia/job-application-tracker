@@ -30,15 +30,15 @@ O projeto foi implementado como uma `Single Page Application` em frontend puro, 
 ### Camadas
 
 1. `Presentation layer`
-   - [index.html](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/job-application-tracker/index.html)
+   - [index.html](index.html)
    - Estrutura semântica da interface, painel lateral, dashboard, board, tabela e modal de edição.
 
 2. `Styling layer`
-   - [styles.css](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/job-application-tracker/styles.css)
+   - [styles.css](styles.css)
    - Tema visual com glassmorphism, gradientes, tipografia expressiva e responsividade mobile-first adaptada.
 
 3. `State and interaction layer`
-   - [app.js](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/job-application-tracker/app.js)
+   - [app.js](app.js)
    - Gerenciamento de estado, filtros, renderização, persistência e fluxos CRUD.
 
 ## Modelo de Dados
@@ -63,7 +63,7 @@ Cada candidatura contém os seguintes atributos:
 
 ## Lógica de Estado
 
-O arquivo [app.js](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/job-application-tracker/app.js) centraliza:
+O arquivo [app.js](app.js) centraliza:
 
 - `state.applications`: lista principal de candidaturas;
 - `state.filters`: critério atual de busca, estágio, prioridade e modo de visualização;
@@ -97,7 +97,7 @@ Como é uma SPA estática, você pode abrir o arquivo HTML diretamente ou servir
 
 ### Opção 1: abrir localmente
 
-Abra [index.html](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/job-application-tracker/index.html) no navegador.
+Abra [index.html](index.html) no navegador.
 
 ### Opção 2: servidor HTTP local
 
@@ -148,9 +148,9 @@ Depois abra:
 
 The application uses a zero-build frontend stack:
 
-- [index.html](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/job-application-tracker/index.html) for semantic layout;
-- [styles.css](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/job-application-tracker/styles.css) for responsive visual design;
-- [app.js](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/job-application-tracker/app.js) for state management, filtering, CRUD behavior, and UI rendering.
+- [index.html](index.html) for semantic layout;
+- [styles.css](styles.css) for responsive visual design;
+- [app.js](app.js) for state management, filtering, CRUD behavior, and UI rendering.
 
 Core implementation characteristics:
 
